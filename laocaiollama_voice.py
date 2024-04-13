@@ -29,9 +29,9 @@ def autoplay_audio(file_path: str):
             #Your browser does not support the audio element.
 def main():
     #st.title("老蔡的多语种对话机器人")
-    st.markdown('<h1 class="custom-title">老蔡的多语种对话机器人</h1>', unsafe_allow_html=True)
-    lang = st.selectbox("请选择发音的语言: ", options=langs, index=56) # 预设选择简体中文    
-    model_name = st.selectbox("请选择对话模型: ", ['mistral','qwen','gemma'])
+    st.markdown('<h1 class="custom-title">老蔡的多语种对话机器人(Cai’s multilingual conversational robot)</h1>', unsafe_allow_html=True)
+    lang = st.selectbox("请选择发音的语言(Please select the language of pronunciation): ", options=langs, index=56) # 预设选择简体中文    
+    model_name = st.selectbox("请选择对话模型(Please select a conversation model): ", ['mistral','qwen','gemma'])
     if model_name == 'mistral':
         model_name = 'mistral'
     elif model_name == 'qwen':
@@ -39,18 +39,18 @@ def main():
     elif model_name == 'gemma':
         model_name = 'gemma'
     #設置用戶輸入框
-    user_input = st.text_area("您想问什麼？请输入问题！", "")
+    user_input = st.text_area("您想问什麼？请输入问题！(Input question)", "")
     
     #當使用者按下送出按鈕後的處理
     #if st.markdown('<button class="custom-button">送出</button>', unsafe_allow_html=True):
-    if st.button('送出'): 
+    if st.button('送出(send)'): 
         if user_input:
     #使用ollama模型，進行對話
             response = ollama.chat(model=model_name, messages=[{'role': 'user', 'content': user_input}])
             
     #顯示回答
         #st.markdown(f'<p class="custom-text">回答：</p>', unsafe_allow_html=True)
-        st.text("回答：")
+        st.text("回答(Answer)：")
         st.write(response['message']['content'])
 
         tts = gTTS(response['message']['content'], lang=lang, slow=False, lang_check=True)
